@@ -12,26 +12,26 @@ time_t start_time;
 void handler(int signum)
 { //signal handler
   printf("Hello World!\n");
-  exit(1); //exit after printing
+  alarm_triggered = 1;
+  alarm_count++;
 }
-
-int main(int argc, char * argv[])
-{
-    time_t seconds;
-     
-    seconds = time(NULL);
-    printf("Seconds since January 1, 1970 = %ld\n", seconds);
-     
-    return(0);
+void sigint_handler(int signum){
+  time_t end_time =time(NULL)
+  printf("\n Excution Time:\n", end_time-start_time);
+  printf("\n Alarms Triggered:\n", alarm_count);
+  exit(0);
 }
+int main()
 {
+  start_time = time(NULL)   
   signal(SIGALRM,handler); //register handler to handle SIGALRM
+  signal(SIGINT, sigint_handler); //register handler to handle SIGALRM
   alarm(5); //Schedule a SIGALRM for 5 seconds
   while(1); {//busy wait for signal to be delivered
     if (alarm_Trig){
     printf("Turing was right!\n");
     alarm_triggered = 0; 
-    }
+    alarm(5); //Schedule a SIGALRM for 5 seconds
   }
   return 0; //never reached
 }
